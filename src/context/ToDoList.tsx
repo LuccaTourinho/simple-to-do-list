@@ -30,11 +30,6 @@ const ToDoListProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   const handleDeletedTodo = (deletedToDo: ToDoListFormat) => {
     const newTodoList = toDoList.filter((item) => item.index !== deletedToDo.index);
-    newTodoList.forEach((item) => {
-      if (item.index > deletedToDo.index) {
-        item.index -= 1;
-      }
-    });
     setToDoList(newTodoList);
   };
 

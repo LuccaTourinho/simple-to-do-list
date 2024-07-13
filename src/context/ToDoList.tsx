@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { ToDoListFormat } from '../interfaces';
+import { testToDos } from '../test/variables';
 
 interface ToDoListContextProps {
   toDoList: ToDoListFormat[];
@@ -11,7 +12,7 @@ interface ToDoListContextProps {
 const ToDoListContext = createContext<ToDoListContextProps | undefined>(undefined);
 
 const ToDoListProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [toDoList, setToDoList] = useState<ToDoListFormat[]>([{ index: 0, ToDo: 'Do the laundry' }]);
+  const [toDoList, setToDoList] = useState<ToDoListFormat[]>(testToDos);
 
   const insertToDoList = (newToDo: string) => {
     setToDoList((prevToDoList) => [...prevToDoList, { index: prevToDoList.length, ToDo: newToDo }]);

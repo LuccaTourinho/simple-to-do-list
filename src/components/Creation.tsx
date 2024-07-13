@@ -1,10 +1,8 @@
-import React,{useState} from "react";
+import React, { useState } from 'react';
+import { useToDoList } from '../context/ToDoList';
 
-interface CreationProps {
-  insertToDoList: (newTodo: string) => void;
-}
-
-const Creation: React.FunctionComponent<CreationProps> = (props) => {
+const Creation: React.FunctionComponent = () => {
+  const { insertToDoList } = useToDoList();
   const [inputValue, setInputValue] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -13,11 +11,10 @@ const Creation: React.FunctionComponent<CreationProps> = (props) => {
 
   const handleSubmit = () => {
     if (inputValue.trim() !== '') {
-      props.insertToDoList(inputValue);
+      insertToDoList(inputValue);
       setInputValue('');
     }
-    
-  }
+  };
 
   return (
     <div className='flex flex-col justify-between gap-5 w-full h-[100px]'>
@@ -33,7 +30,7 @@ const Creation: React.FunctionComponent<CreationProps> = (props) => {
       <div className='flex flex-row justify-center gap-3 h-10 w-full'>
         <button 
           className='bg-slate-200 h-10 w-[80px] rounded-full hover:scale-110 Play shadow-xl font-bold'
-          onClick={() => handleSubmit()}
+          onClick={handleSubmit}
         >Submit</button>
         <button 
           className='bg-slate-200 h-10 w-[80px] rounded-full hover:scale-110 Play shadow-xl font-bold'

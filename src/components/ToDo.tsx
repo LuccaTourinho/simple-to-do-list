@@ -1,39 +1,39 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { ToDoListFormat } from '../interfaces';
+import { useToDoList } from '../context/ToDoList';
 
 interface ToDoProps {
   toDoItem: ToDoListFormat;
-  handleUpdatedToDo: (updatedToDo: ToDoListFormat) => void;
-  handleDeletedTodo: (deletedToDo: ToDoListFormat) => void;
 }
 
-const ToDo: React.FunctionComponent<ToDoProps> = (props) => {
+const ToDo: React.FunctionComponent<ToDoProps> = ( props ) => {
+  const { handleUpdatedToDo, handleDeletedTodo } = useToDoList();
   const [item, setItem] = useState<ToDoListFormat>(props.toDoItem);
   const [updateItem, setUpdateItem] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setItem({index: item.index, ToDo: e.target.value});
-  }
+    setItem({ index: item.index, ToDo: e.target.value });
+  };
 
   const toggleEdit = () => {
     setUpdateItem(!updateItem);
-  }
+  };
 
   const handleEdit = () => {
     setUpdateItem(!updateItem);
-    props.handleUpdatedToDo(item);
-  }
+    handleUpdatedToDo(item);
+  };
 
   const handleDelete = () => {
-    props.handleDeletedTodo(item);
-  }
+    handleDeletedTodo(item);
+  };
 
   return (
     <div className='flex flex-row bg-white h-10 w-full p-2 rounded-lg shadow-xl'>
       {!updateItem ? 
           <>
-          <p className='w-[90%] px-2'>{item.ToDo}</p> 
-          <div className='flex justify-between gap-2 py-1/2 w-[10%]'>
+            <p className='w-[90%] px-2'>{item.ToDo}</p> 
+            <div className='flex justify-between gap-2 py-1/2 w-[10%]'>
               <button 
                 className='flex justify-center w-full bg-blue-400 text-white font-bold rounded-full hover:scale-110 shadow-lg'
                 onClick={toggleEdit}
